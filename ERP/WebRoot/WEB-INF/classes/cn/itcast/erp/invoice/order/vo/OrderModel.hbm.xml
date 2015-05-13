@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.itcast.erp.invoice.order.vo.OrderModel" table="tbl_order">
+        <id name="uuid">
+            <generator class="native" />
+        </id>
+        <property name="orderNum"/>
+        
+        <property name="createTime"/>
+        <property name="checkTime"/>
+        <property name="endTime"/>
+        
+        <property name="type"/>
+        <property name="orderState"/>
+        <property name="totalNum"/>
+        <property name="totalPrice"/>
+        	
+        <!--供应商对商品类别 [多]对一 -->
+        <many-to-one name="creater" class="cn.itcast.erp.auth.emp.vo.EmpModel" column="creater" />
+        <many-to-one name="checker" class="cn.itcast.erp.auth.emp.vo.EmpModel" column="checker" />
+        <many-to-one name="completer" class="cn.itcast.erp.auth.emp.vo.EmpModel" column="completer" />
+        <!--供应商对商品类别 [多]对一 -->
+        <many-to-one name="supplier" class="cn.itcast.erp.invoice.supplier.vo.SupplierModel" column="supplier" />
+        
+        <set name="odms" table="tbl_orderdetial" cascade="save-update" inverse="true">
+        	<key column="order_uuid" />
+        	<one-to-many class="cn.itcast.erp.invoice.orderDetail.vo.OrderDetialModel" />
+        </set>	
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">
+	<bean id="gtAction" class="cn.itcast.erp.invoice.goodstype.web.GoodsTypeAction" scope="prototype"></bean>
+	<bean id="gtEbi" class="cn.itcast.erp.invoice.goodstype.business.ebo.GoodsTypeEbo"></bean>
+	<bean id="gtDao" class="cn.itcast.erp.invoice.goodstype.dao.impl.GoodsTypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>  
+</beans>	
+	

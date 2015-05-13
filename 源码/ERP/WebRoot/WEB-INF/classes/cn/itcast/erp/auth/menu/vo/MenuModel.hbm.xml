@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        '-//Hibernate/Hibernate Mapping DTD 3.0//EN'
+        'http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd'>
+<hibernate-mapping>
+    <class name="cn.itcast.erp.auth.menu.vo.MenuModel" table="tbl_menu">
+        <id name="uuid">
+            <generator class="native" />
+        </id>
+        <property name="name"/>
+        <property name="url"/>
+        
+        <!-- 每个菜单具有一个父菜单 -->
+        <many-to-one 
+        	name="parent"
+        	column="puuid"
+        	class="cn.itcast.erp.auth.menu.vo.MenuModel"
+        	/>
+        <!-- 每个菜单具有多个菜单项 -->
+        <!-- 级联删除：断开关系，删除所有的子，删除父 -->
+        <!-- 将级联删除设置为不对关联关系进行维护 -->
+        <set name="children" cascade="delete" inverse="true">
+        	<key column="puuid"/>
+        	<one-to-many class="cn.itcast.erp.auth.menu.vo.MenuModel"/>
+        </set>
+        <!-- 菜单对角色多对多 -->
+        <set name="roles" table="tbl_role_menu">
+        	<key column="menuUuid"/>
+        	<many-to-many
+        		column="roleUuid"
+        		class="cn.itcast.erp.auth.role.vo.RoleModel"
+        		/>
+        </set>
+    </class>
+</hibernate-mapping>

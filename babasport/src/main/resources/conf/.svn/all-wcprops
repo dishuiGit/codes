@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/code/!svn/ver/5/babasport/src/main/resources/conf
+END
+jdbc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/code/!svn/ver/5/babasport/src/main/resources/conf/jdbc.xml
+END
+transation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/code/!svn/ver/5/babasport/src/main/resources/conf/transation.xml
+END
+property.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/code/!svn/ver/5/babasport/src/main/resources/conf/property.xml
+END
+redis.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/8/babasport/src/main/resources/conf/redis.xml
+END
+mybatis.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/5/babasport/src/main/resources/conf/mybatis.xml
+END
+anotation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/6/babasport/src/main/resources/conf/anotation.xml
+END
+solr.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/code/!svn/ver/9/babasport/src/main/resources/conf/solr.xml
+END

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.itcast.erp.invoice.orderDetail.vo.OrderDetialModel" table="tbl_orderdetial">
+        <id name="uuid">
+            <generator class="native" />
+        </id>
+        <property name="num"/>
+        <property name="suplus"/>
+        <property name="price"/>
+        <!--供应商对商品类别 [多]对一 -->
+        <many-to-one name="gm" class="cn.itcast.erp.invoice.goods.vo.GoodsModel" column="goods_uuid" />
+        <!--供应商对商品类别 [多]对一 -->
+        <many-to-one name="om" class="cn.itcast.erp.invoice.order.vo.OrderModel" column="order_uuid" />
+        
+    </class>
+</hibernate-mapping>

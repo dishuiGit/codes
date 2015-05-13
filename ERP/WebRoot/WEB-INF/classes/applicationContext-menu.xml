@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">
+	<bean id="menuAction" class="cn.itcast.erp.auth.menu.web.MenuAction" scope="prototype"/>
+	<bean id="menuEbi" class="cn.itcast.erp.auth.menu.business.ebo.MenuEbo" />
+	<bean id="menuDao" class="cn.itcast.erp.auth.menu.dao.impl.MenuDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>	
+	

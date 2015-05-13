@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
+    <package name="erp_base" namespace="/" extends="json-default">
+		<!--配置拦截器  -->
+		<interceptors>
+			<interceptor name="loginInterceptor" class="cn.itcast.erp.interceptor.LoginInterceptor" />
+			<interceptor name="authinterceptor" class="cn.itcast.erp.interceptor.AuthInterceptor" />
+			<interceptor name="exceptionInterceptor" class="cn.itcast.erp.interceptor.ExceptionInterceptor" />		
+			<interceptor-stack name="ErpStack">
+				<!-- 注意拦截器执行顺序,异常处理应该放在最后,所以最后-->				
+				<!--<interceptor-ref name="exceptionInterceptor"/>-->			
+				<interceptor-ref name="loginInterceptor" />
+				<!-- 登陆之后,再做权限校验 -->			
+				<interceptor-ref name="authinterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>			
+		</interceptors>
+		<!--配置默认拦截器栈   -->
+		<default-interceptor-ref name="ErpStack"/>
+		
+		<!--公共结果集-->
+		
+		<global-results>
+			<!--嵌套页面解决-->			
+			<result name="noLogin">index.jsp</result>
+			<result name="error">WEB-INF/jsps/tools/error.jsp</result>
+			<result name="list">WEB-INF/jsps/${actionName}/list.jsp</result>
+			<result name="toList" type="redirectAction">${actionName}_list</result>
+			<result name="input">WEB-INF/jsps/${actionName}/input.jsp</result>
+		</global-results>
+		<!--页面跳转-->
+    	<action name="page_*">
+			<result>WEB-INF/jsps/{1}.jsp</result>
+		</action>
+		<!--emp登陆   -->
+		<action name="emp_*" class="empAction" method="{1}">
+			<result name="loginSuccess">WEB-INF/jsps/main.jsp</result>
+			<result name="loginFail">WEB-INF/jsps/login.jsp</result>
+			<result name="changePwd">WEB-INF/jsps/emp/changePwd.jsp</result>
+		</action>		
+		<!-- role -->
+		<action name="role_*" class="roleAction" method="{1}">
+			
+		</action>
+		<!-- res -->
+		<action name="res_*" class="resAction" method="{1}"></action>		
+		<!-- menu -->
+		<action name="menu_*" class="menuAction" method="{1}"></action>		
+		<!-- supplier -->
+		<action name="supplier_*" class="supplierAction" method="{1}"></action>		
+		<!-- goodstype -->
+		<action name="goodsType_*" class="gtAction" method="{1}">
+			<result name="getAllGT" type="json">
+				<!-- 设置数据来源 -->
+				<param name="root">action</param>
+				<param name="includePorperties">
+					gtList\[\d+\]\.uuid,
+					gtList\[\d+\]\.name
+				</param>
+			</result>
+		</action>
+		<!--goods -->		
+		<!--goods -->		
+		<action name="goods_*" class="goodsAction" method="{1}"></action>		
+		<!--order -->		
+		<action name="order_*" class="orderAction" method="{1}">
+			<result name="buyInput">WEB-INF/jsps/order/buy/buyInput.jsp</result>
+			<result name="buyList">WEB-INF/jsps/order/buy/buyList.jsp</result>
+			<result name="toBuyList" type="redirectAction">order_buyList</result>
+			<result name="buyCheckList">WEB-INF/jsps/order/buy/buyCheckList.jsp</result>
+			<result name="inDetialList">WEB-INF/jsps/order/buy/inDetailList.jsp</result>
+			<result name="inApprove">WEB-INF/jsps/order/buy/inApprove.jsp</result>
+		<!--AJAX -->		
+			<!--根据供应商获取所有商品类别 -->		
+			<result name="getAllGTBySM" type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">
+					gtList\[\d+\]\.uuid,
+					gtList\[\d+\]\.name,
+					gmList\[\d+\]\.uuid,
+					gmList\[\d+\]\.name,
+					gmList\[\d+\]\.inPriceView,
+				</param>
+			</result>
+			<!-- 根据商品类别获取 商品-->
+			<result name="getAllGMByGT" type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">
+					gmList\[\d+\]\.uuid,
+					gmList\[\d+\]\.name,
+					gmList\[\d+\]\.inPriceView
+				</param>
+			</result>
+			<!-- 根据指定商品uuid获得指定商品-->
+			<result name="getGm" type="json">
+				<param name="root">goods</param>
+			</result>		
+		</action>
+			
+		<!-- orderDetial-->
+		<action name="orderDetial_*" class="odAction" method="{1}"></action>
+		<!-- transport-->
+		<action name="transport_*" class="orderAction" method="{1}">
+			<result name="taskList">WEB-INF/jsps/order/transport/taskList.jsp</result>
+			<result name="toTaskList" type="redirectAction">transport_taskList</result>
+			<result name="assignTask">WEB-INF/jsps/order/transport/assignTask.jsp</result>
+			<result name="queryTasks">WEB-INF/jsps/order/transport/tasks.jsp</result>
+			<result name="toQueryTasks" type="redirectAction">transport_queryTasks</result>
+			<result name="taskDetail">WEB-INF/jsps/order/transport/taskDetail.jsp</result>
+		</action>
+		
+    </package>
+	<!--加载dep模块的xml --> 
+	<include file="struts_res/struts-store.xml"/>
+	<include file="struts_res/struts-storedetail.xml"/>
+	<include file="struts_res/struts-storeoper.xml"/>
+	<include file="struts_res/struts-bill.xml"/>
+</struts>

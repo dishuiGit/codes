@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dishui.core.dao.brand.BrandDao">
+	<!-- 查询品牌总数量 -->
+	<select id="selectBrandCount" parameterType="BrandQuery" resultType="Integer">
+		select count(1)
+		from bbs_brand
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+			<if test="isDisplay != null">
+				and is_display=#{isDisplay};
+			</if>
+		</where>
+	</select>
+	<!-- Brand对象与表的映射 -->
+	<resultMap type="Brand" id="brand">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="is_display" property="isDisplay"/>
+	</resultMap>
+	<!-- 查询品牌List -->
+	<select id="selectBrandList" parameterType="BrandQuery" resultMap="brand">
+		select id,name,description,img_url,sort,is_display
+		from bbs_brand
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+			<if test="isDisplay != null">
+				and is_display=#{isDisplay}
+			</if>
+		</where>
+		LIMIT #{startRow},#{pageSize};
+	</select>
+	<select id="selectBrandById" parameterType="Integer" resultMap="brand">
+		select id,name,description,img_url,sort,is_display
+		from bbs_brand
+		<where>
+			id = #{id}
+		</where>
+	</select>
+	<!-- 品牌option -->
+	<select id="selectBrandsForOption" parameterType="BrandQuery" resultMap="brand">
+		select 
+		<if test="fields!=null">
+			${fields}
+		</if>
+		<if test="fields==null">
+			id,name,description,img_url,sort,is_display
+		</if>
+		from bbs_brand
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+			<if test="isDisplay != null">
+				and is_display=#{isDisplay}
+			</if>
+		</where>
+	</select>
+	<!-- 保存 -->
+	<insert id="insertBrand" parameterType="brand">
+		insert into bbs_brand
+		(id,name,description,img_url,sort,is_display) 
+		values(#{id},#{name},#{description},#{imgUrl},#{sort},#{isDisplay});
+	</insert>
+	<!-- 批量删除 -->
+	<delete id="deleteBrands" parameterType="Integer[]">
+		delete from bbs_brand
+		<where>
+			id in 
+			<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</where>
+	</delete>
+</mapper>

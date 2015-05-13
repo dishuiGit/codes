@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="bill" extends="erp_base">
+		<!-- storeAction-->
+		<action name="bill_*" class="billAction" method="{1}">
+			<result name="buyBillList">WEB-INF/jsps/bill/buy/buyBill.jsp</result>
+			<result name="billDetail" type="json">
+				<param name="root">orderDetialModels</param>
+			</result>			
+		</action>
+	</package>
+</struts>

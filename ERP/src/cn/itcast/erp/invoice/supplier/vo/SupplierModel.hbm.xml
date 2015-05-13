@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.itcast.erp.invoice.supplier.vo.SupplierModel" table="tbl_supplier">
+        <id name="uuid">
+            <generator class="native" />
+        </id>
+        <property name="name"/>
+        <property name="address"/>
+        <property name="tele"/>
+        <property name="contact"/>
+        <property name="needs"/>
+        <!--供应商对商品类别 [一]对多 -->
+        <set name="gtms" table="tbl_goodstype">
+        	<key column="supplier_uuid" />
+        	<one-to-many class="cn.itcast.erp.invoice.goodstype.vo.GoodsTypeModel"/>
+        </set>
+    </class>
+</hibernate-mapping>

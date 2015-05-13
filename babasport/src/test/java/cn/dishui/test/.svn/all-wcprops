@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/8/babasport/src/test/java/cn/dishui/test
+END
+TestSolr.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/9/babasport/src/test/java/cn/dishui/test/TestSolr.java
+END
+TestMybatis.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/9/babasport/src/test/java/cn/dishui/test/TestMybatis.java
+END
+SpringBaseTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/8/babasport/src/test/java/cn/dishui/test/SpringBaseTest.java
+END
+TestJedis.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/8/babasport/src/test/java/cn/dishui/test/TestJedis.java
+END

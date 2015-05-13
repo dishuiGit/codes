@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.core.dao.product.BrandDao">
+
+<!-- 符合条件的总条数    -->
+<select id="selectBrandCount" parameterType="BrandQuery" resultType="Integer">
+	select count(1) 
+	from bbs_brand 
+	<where>
+		<if test="name != null">
+			 name = #{name} 
+		</if>
+		<if test="isDisplay != null">
+		   and is_display = #{isDisplay}
+		</if>
+	</where>
+</select>
+
+<!-- 手动映射 Map -->
+<resultMap type="Brand" id="brand">
+	<id column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="description" property="description"/>
+	<result column="img_url" property="imgUrl"/>
+	<result column="sort" property="sort"/>
+	<result column="is_display" property="isDisplay"/>
+</resultMap>
+
+<!-- 符合条件的List结果集   指定条数  返回5条 -->
+<select id="selectBrandListWithWhere" parameterType="BrandQuery" resultMap="brand">
+	select  id,name,description,img_url,sort,is_display 
+	from bbs_brand 
+	<where>
+		<if test="name != null">
+			 name = #{name} 
+		</if>
+		<if test="isDisplay != null">
+		   and is_display = #{isDisplay}
+		</if>
+	</where>
+	order by id desc
+	<if test="startRow != null">
+		limit #{startRow} , #{pageSize}
+	</if>
+</select>
+<!-- 符合条件的List结果集   指定条数  返回5条 -->
+<select id="selectBrandList" parameterType="BrandQuery" resultMap="brand">
+	select  
+	<if test="fields != null">
+		${fields}
+	</if>
+	<if test="fields == null">
+		id,name,description,img_url,sort,is_display 
+	</if>
+	from bbs_brand 
+	<where>
+		<if test="name != null">
+			 name = #{name} 
+		</if>
+		<if test="isDisplay != null">
+		   and is_display = #{isDisplay}
+		</if>
+	</where>
+	order by id desc
+</select>
+
+<!-- 品牌添加 -->
+<insert id="addBrand" parameterType="Brand">
+	insert into bbs_brand
+	(id,name,description,img_url,sort,is_display)
+	values
+	(#{id},#{name},#{description},#{imgUrl},#{sort},#{isDisplay})
+</insert>
+
+<!-- 批量删除 (1,2,3,4) -->
+<delete id="deleteBrands" parameterType="Integer[]">
+	delete from bbs_brand
+	<where>
+		id in 
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</where>
+</delete>
+
+<!-- 查询一个品牌  通过ID -->
+<select id="selectBrandById" parameterType="Integer" resultMap="brand">
+	select  id,name,description,img_url,sort,is_display 
+	from bbs_brand 
+	<where>
+		id = #{id}
+	</where>
+</select>
+<!-- 修改品牌   if-->
+<update id="updateBrandById" parameterType="Brand">
+	update bbs_brand
+	<set>
+		<if test="name != null">
+			name = #{name},
+		</if>
+		<if test="description != null">
+			description= #{description},
+		</if>
+		<if test="imgUrl != null">
+			img_url= #{imgUrl},
+		</if>
+		<if test="sort != null">
+			sort= #{sort},
+		</if>
+		<if test="isDisplay != null">
+			is_display= #{isDisplay} 
+		</if>
+	</set>
+	<where>
+		id = #{id}
+	</where>
+</update>
+
+</mapper>

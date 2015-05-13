@@ -1,0 +1,8 @@
+package cn.dishui.core.service.service.product;
+
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public interface SkuService {
+	
+}

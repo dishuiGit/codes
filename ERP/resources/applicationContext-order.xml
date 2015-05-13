@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">
+	<bean id="orderAction" class="cn.itcast.erp.invoice.order.web.OrderAction" scope="prototype"></bean>
+	<bean id="orderEbi" class="cn.itcast.erp.invoice.order.business.ebo.OrderEbo"></bean>
+	<bean id="orderDao" class="cn.itcast.erp.invoice.order.dao.impl.OrderDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	  
+	<bean id="odAction" class="cn.itcast.erp.invoice.orderDetail.web.OrderDetialAction" scope="prototype"></bean>
+	<bean id="odEbi" class="cn.itcast.erp.invoice.orderDetail.business.ebo.OrderDetialEbo"></bean>
+	<bean id="odDao" class="cn.itcast.erp.invoice.orderDetail.dao.impl.OrderDetialDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	  
+</beans>	
+	

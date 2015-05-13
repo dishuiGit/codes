@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	
+    <class name="cn.itcast.erp.auth.menu.vo.MenuModel" table="tbl_menu">
+        <id name="uuid">
+            <generator class="native" />
+        </id>
+        <property name="name"/>
+        <property name="url"/>
+        <!-- 关系 [子菜单]到父菜单 多对一 -->
+        <many-to-one name="parentMM" class="cn.itcast.erp.auth.menu.vo.MenuModel" column="parent_uuid"/>
+        <!-- 关系 [父菜单]到子菜单 一对多 -->
+        <set name="children" cascade="delete" inverse="true">
+        	<key column="parent_uuid"/>
+        	<one-to-many class="cn.itcast.erp.auth.menu.vo.MenuModel" />
+        </set>
+        <!-- 关系 [菜单]到角色 多对多 -->
+        <set name="roles" table="tbl_role_menu">
+        	<key column="menu_uuid"/>
+        	<many-to-many class="cn.itcast.erp.auth.role.vo.RoleModel" column="role_uuid" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

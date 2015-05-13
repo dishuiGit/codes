@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	id="WebApp_ID" version="2.4">
+
+
+
+	<!-- 配置Spring的监听器 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:application-context.xml</param-value>
+	</context-param>
+
+	<!-- 监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!--  页面缓存
+	<filter>
+	    <filter-name>CacheFilter</filter-name>
+	    <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
+	    <init-param>
+	        <param-name>time</param-name>
+	        <param-value>7200</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>scope</param-name>
+	        <param-value>application</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+		    <filter-name>CacheFilter</filter-name>
+		    <url-pattern>/product/display/*</url-pattern>
+	</filter-mapping>
+	-->
+	
+
+	<!-- POS提交乱码解决 -->
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<!-- *.shtml *.do -->
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>*.shtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 配置Springmvc前端控制器 前台 -->
+	<servlet>
+		<servlet-name>front</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 指定配置文件所在位置 不配置init-param 默认到/WEB-INF/找配置文件 /WEB-INF/servlet的名称-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-front.xml</param-value>
+		</init-param>
+		<!-- 随着Tomcat启动而加载 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 配置Springmvc前端控制器 后台 -->
+	<servlet>
+		<servlet-name>back</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 指定配置文件所在位置 不配置init-param 默认到/WEB-INF/找配置文件 /WEB-INF/servlet的名称-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-back.xml</param-value>
+		</init-param>
+		<!-- 随着Tomcat启动而加载 -->
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>front</servlet-name>
+		<!-- *.action 请求路径必须是.action 第一种:/* 拦截所有请求 弊端 /WEB-INF/jsp/items.jsp 报错 
+			404找不到此请求路径 第二种:/ 拦截所有请求 弊端 .js .css .jpg .... 报错:样式找不到 js找不一到 ( 配置静态资源不要进行拦截) -->
+		<url-pattern>*.shtml</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>back</servlet-name>
+		<!-- *.action 请求路径必须是.action 第一种:/* 拦截所有请求 弊端 /WEB-INF/jsp/items.jsp 报错 
+			404找不到此请求路径 第二种:/ 拦截所有请求 弊端 .js .css .jpg .... 报错:样式找不到 js找不一到 ( 配置静态资源不要进行拦截) -->
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+
+
+</web-app>

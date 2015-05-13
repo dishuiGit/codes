@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/code/!svn/ver/4/babasport
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/code/!svn/ver/6/babasport/.classpath
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/code/!svn/ver/5/babasport/.project
+END
+pom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/code/!svn/ver/8/babasport/pom.xml
+END

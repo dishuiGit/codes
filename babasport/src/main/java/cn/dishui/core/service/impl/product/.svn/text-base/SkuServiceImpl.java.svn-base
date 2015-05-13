@@ -1,0 +1,17 @@
+package cn.dishui.core.service.impl.product;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import cn.dishui.core.dao.product.SkuMapper;
+import cn.dishui.core.service.service.product.SkuService;
+@Service
+public class SkuServiceImpl implements SkuService{
+
+	@Resource
+	private SkuMapper skuMapper;
+	
+	
+
+}

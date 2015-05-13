@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/code/!svn/ver/5/babasport/src/main/resources
+END
+spring-mvc-back.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/code/!svn/ver/7/babasport/src/main/resources/spring-mvc-back.xml
+END
+application-context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/7/babasport/src/main/resources/application-context.xml
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/7/babasport/src/main/resources/log4j.properties
+END
+mybatis-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/7/babasport/src/main/resources/mybatis-config.xml
+END
+spring-mvc-front.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/code/!svn/ver/9/babasport/src/main/resources/spring-mvc-front.xml
+END
+jdbc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/5/babasport/src/main/resources/jdbc.properties
+END

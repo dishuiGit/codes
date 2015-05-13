@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/8/babasport/src/main/resources/cn/dishui/core/dao/product
+END
+FeatureMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/code/!svn/ver/8/babasport/src/main/resources/cn/dishui/core/dao/product/FeatureMapper.xml
+END
+ImgMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/code/!svn/ver/9/babasport/src/main/resources/cn/dishui/core/dao/product/ImgMapper.xml
+END
+ColorMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/9/babasport/src/main/resources/cn/dishui/core/dao/product/ColorMapper.xml
+END
+ProductMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/code/!svn/ver/9/babasport/src/main/resources/cn/dishui/core/dao/product/ProductMapper.xml
+END
+TypeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/code/!svn/ver/8/babasport/src/main/resources/cn/dishui/core/dao/product/TypeMapper.xml
+END
+SkuMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/code/!svn/ver/8/babasport/src/main/resources/cn/dishui/core/dao/product/SkuMapper.xml
+END

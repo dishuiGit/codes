@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/service/service/product
+END
+ColorService.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/service/service/product/ColorService.java
+END
+ProductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/9/babasport/src/main/java/cn/dishui/core/service/service/product/ProductService.java
+END
+TypeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/service/service/product/TypeService.java
+END
+SkuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/code/!svn/ver/9/babasport/src/main/java/cn/dishui/core/service/service/product/SkuService.java
+END
+FeatureService.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/service/service/product/FeatureService.java
+END

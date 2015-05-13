@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product
+END
+ImgQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/ImgQuery.java
+END
+Sku.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/Sku.java
+END
+ColorQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/ColorQuery.java
+END
+ProductQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/ProductQuery.java
+END
+TypeQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/TypeQuery.java
+END
+BrandQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/BrandQuery.java
+END
+Img.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/9/babasport/src/main/java/cn/dishui/core/po/product/Img.java
+END
+Color.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/Color.java
+END
+Product.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/9/babasport/src/main/java/cn/dishui/core/po/product/Product.java
+END
+FeatureQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/FeatureQuery.java
+END
+Type.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/Type.java
+END
+Brand.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/Brand.java
+END
+SkuQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/SkuQuery.java
+END
+Feature.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/Feature.java
+END
+ProductWithBLOBs.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/code/!svn/ver/8/babasport/src/main/java/cn/dishui/core/po/product/ProductWithBLOBs.java
+END

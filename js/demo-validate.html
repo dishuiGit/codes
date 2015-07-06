@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="utf-8">
+<title>验证插件</title>
+<style>
+body,a{ font-size:14px; color:#666;}
+ul,li{ margin:0; padding:0; list-style:none}
+.fn-vhid{ visibility:hidden;}
+.fn-tinput{ width:240px; height:30px; line-height:30px\9; border:#ddd solid 1px; background-color:transparent; padding:0 6px;}
+textarea {border:#ddd solid 1px; background-color:transparent; width:60%}
+.fn-tinput:focus,textarea:focus{ border-color:#c00;}
+.bl-form label{ float:left; width:100px; text-align:right; padding-top:6px;}
+.bl-form .controls label{ width:auto;}
+.bl-form li{ margin-top:20px; overflow:hidden;}
+em{ color:#C00;}
+span.error{color:#C00; padding:0 6px;}
+</style>
+</head>
+
+<body style="padding: 50px;">
+<div class="demobox" style="width: 800px; background: #fff; border: #ddd solid 1px; padding: 30px;">
+    <div class="bl-notes bl-notes-info">
+        <h3>规则说明：</h3>
+        <p>如：input type="email" value="" name="title" class="fn-tinput" required data-rule-<em>email</em>="true" data-msg-required="请输入email地址" data-msg-<em>email</em>="请输入正确的email地址"</p>
+        <div class="fn-hr fn-mt10 fn-mb10"></div>
+        <p>required //必填</p>
+        <p>data-rule-<em>email</em>="true" //正则为 email </p>
+        <p>data-msg-required="请输入您的电子邮箱" //为空时的提示信息</p>
+        <p>data-msg-<em>email</em>="邮箱格式不正确" //不符合正则的提示</p>
+        <p>placeholder="电子邮件"   //input中没有填写的提示</p>
+        <strong>更多信息请参考源代码</strong>
+        <p>表单的样式是随手写了一下，只是看起来稍微好看一点，样式不是本文重点，验证规则与书写方法和样式无关，可以自行定义。懒人建站http://www.51xuediannao.com/</p>
+    </div>
+    <form action="js/test.json" method="post" class="bl-form bl-formhor" id="jsForm">
+        <ul>
+            <li class="bl-form-group">
+                <label><em>*</em>必填：</label>
+                <div class="controls">
+                   <input id="pwdid" class="fn-tinput" data-rule-remote="http://www.baidu.com" type="password" name="OldPassword" placeholder="原始密码" required data-msg-required="请输入原始密码" minlength="6" data-msg-minlength="至少输入6个字符" />
+                </div>
+            </li>
+            
+            <li class="bl-form-group">
+                <label><em>*</em>必填：</label>
+                <div class="controls">
+                    <input type="text" value="" name="0" class="fn-tinput" placeholder="大于0" required data-msg-required="不能为空" data-rule-gt="true" data-gt="0"/>
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label><em>*</em>必填：</label>
+                <div class="controls">
+                    <input type="text" value="" name="1" class="fn-tinput" placeholder="必填" required data-msg-required="不能为空"/>
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label><em>*</em>Email：</label>
+                <div class="controls">
+                    <input type="email" value="" name="2" class="fn-tinput" placeholder="请输入email地址" required data-rule-email="true" data-msg-required="请输入email地址" data-msg-email="请输入正确的email地址" />
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>手机：</label>
+                <div class="controls">
+                    <input type="text" value="" name="3" class="fn-tinput" placeholder="手机号" required data-rule-mobile="true" data-msg-required="请输入手机号" data-msg-mobile="请输入正确格式" />
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>邮箱或手机：</label>
+                <div class="controls">
+                    <input type="text" value="" name="4" class="fn-tinput" placeholder="邮箱或手机" required data-rule-mm="true" data-msg-required="请输入邮箱" data-msg-mm="请输入正确格式" />
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>数字6-20位：</label>
+                <div class="controls">
+                    <input type="text" value="" name="5" class="fn-tinput" placeholder="数字6-20位" required data-rule-number="true" data-msg-required="不能为空" data-msg-number="请输入正确的数字" data-msg-minlength="请输入最小6位" minlength="6" maxlength="20"/>
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>年龄：</label>
+                <div class="controls">
+                    <input type="text" value="" name="6" class="fn-tinput" placeholder="年龄" required data-rule-age="true" data-msg-required="不能为空" data-msg-age="请输入数字" />
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>新密码：</label>
+                <div class="controls">
+                    <input class="fn-tinput" type="password" name="password" value="" placeholder="新密码" required id="password" data-rule-remote="php.php">
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>确认新密码：</label>
+                <div class="controls">
+                    <input class="fn-tinput" type="password"  name="confirm_password" value="" placeholder="确认新密码" required equalTo="#password">
+                </div>
+            </li>
+            <li class="bl-form-group bl-form-text">
+                <label>单选：</label>
+                <div class="controls">
+                    <label><input name="radio1" type="radio" value="" required>置顶</label>
+                    <label><input name="radio1" type="radio" value="">推荐</label>
+                    <span for="radio1" class="error"></span>
+                </div>
+            </li>
+            <li class="bl-form-group bl-form-text">
+                <label>多选：</label>
+                <div class="controls">
+                    <label><input name="checkbox1" type="checkbox" value="" required>黑色</label>
+                    <label><input name="checkbox1" type="checkbox" value="">白色</label>
+                    <span for="checkbox1" class="error"></span>
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>下拉菜单：</label>
+                <div class="controls">
+                    <select name="select1" required>
+                        <option value="">----选择菜单----</option>
+                        <option value="1">菜单1</option>
+                        <option value="2">菜单2</option>
+                        <option value="3">菜单3</option>
+                        <option value="4">菜单4</option>
+                    </select>
+                </div>
+            </li>
+            <li class="bl-form-group">
+                <label>文本域：</label>
+                <div class="controls editor">
+                    <textarea name="textarea1" cols="" rows="" required></textarea>
+                </div>
+            </li>
+            <li class="bl-form-group bl-form-btns">
+                <label class="fn-vhid">提交：</label>
+                <div class="controls">
+                    <button class="fn-btn btn-primary btn-submit submitBtn" type="submit">提交按钮</button>
+                    <button type="reset" class="fn-btn">重置</button>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <form id="testJF">
+        <ul>
+             <li class="bl-form-group">
+                <label><em>*</em>必填：</label>
+                <div class="controls">
+                    <input type="text" value="" name="0" class="fn-tinput" placeholder="大于0" required data-msg-required="不能为空" data-rule-gt="true" data-gt="0"/>
+                </div>
+            </li>
+            <li class="bl-form-group bl-form-btns">
+                <label class="fn-vhid">提交：</label>
+                <div class="controls">
+                    <button class="fn-btn btn-primary btn-submit submitBtn" type="submit">提交按钮</button>
+                    <button type="reset" class="fn-btn">重置</button>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+<script src="jquery-1.4.4.min.js"></script>
+<script src="myJQ.js"></script>
+<script src="jquery.validate.js"></script>
+<script>
+$(function(){
+    console.log($().jquery);
+    console.log("------------");
+    console.log($myJQ().jquery);
+    //jquery.validate
+    $myJQ("#testJF").validate({
+        submitHandler: function() {
+            //验证通过后 的js代码写在这里
+            alert('a');
+        }
+    })
+        
+})
+
+
+
+
+
+</script>
+
+</body>
+</html>

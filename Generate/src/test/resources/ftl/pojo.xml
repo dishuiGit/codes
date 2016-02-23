@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="${table?cap_first}">
+
+	<typeAlias alias="${table}" type="com.bizoss.trade.${table}.${table?cap_first}" />
+
+
+ 	<sql id="${table}PageCommon">
+	     from ${table}
+		<dynamic prepend="WHERE">
+		<#list attr_list as attr> 
+			<#if attr?ends_with("_")>
+			<#-- 变量赋值 -->
+			<#assign newAttr=attr?substring(0,attr?length-1)/>
+			<isNotEmpty property="${newAttr}" prepend="AND">
+	      		${newAttr}=#${newAttr}#
+	      	</isNotEmpty>
+			<#elseif attr?ends_with("_d")>
+			<#-- 变量赋值 -->
+			<#assign newAttr1=attr?substring(0,attr?length-2)/>
+			<isNotEmpty property="${newAttr1}" prepend="AND">
+	      		${newAttr1}=#${newAttr1}#
+	      	</isNotEmpty>
+			<#else>
+			<isNotEmpty property="${attr}" prepend="AND">
+	      		${attr}=#${attr}#
+	      	</isNotEmpty>
+			</#if>
+	      </#list>
+		</dynamic>
+ 	</sql>  
+	<!-- 插入数据 -->
+	<insert id="insert${table?cap_first}" parameterClass="${table}">
+	   INSERT INTO ${table} ( 
+	   <dynamic prepend=" ">
+	   <#list attr_list as attr> 
+	      	<#if attr?ends_with("_")>
+			<#-- 变量赋值 -->
+			<#assign newAttr=attr?substring(0,attr?length-1)/>
+			<isNotEmpty property="${newAttr}" prepend=",">${newAttr}</isNotEmpty>
+			<#elseif attr?ends_with("_d")>
+			<#-- 变量赋值 -->
+			<#assign newAttr1=attr?substring(0,attr?length-2)/>
+			<isNotEmpty property="${newAttr1}" prepend=",">${newAttr1}</isNotEmpty>
+			<#else>
+			<isNotEmpty property="${attr}" prepend=",">${attr}</isNotEmpty>
+			</#if>
+	   </#list> 
+	   </dynamic>
+	   <![CDATA[
+		 ) VALUES (
+	   ]]>
+	   <dynamic prepend=" ">
+	   <#list attr_list as attr> 
+	      <#if attr?ends_with("_")>
+			<#-- 变量赋值 -->
+			<#assign newAttr=attr?substring(0,attr?length-1)/>
+			<isNotEmpty property="${newAttr}" prepend=",">#${newAttr}#</isNotEmpty>
+			<#elseif attr?ends_with("_d")>
+			<#-- 变量赋值 -->
+			<#assign newAttr1=attr?substring(0,attr?length-2)/>
+			<isNotEmpty property="${newAttr1}" prepend=",">#${newAttr1}#</isNotEmpty>
+			<#else>
+			<isNotEmpty property="${attr}" prepend=",">#${attr}#</isNotEmpty>
+			</#if>
+	   </#list>
+	   </dynamic> 
+	   <![CDATA[
+		 )
+	   ]]>
+	</insert>
+	   
+	<!-- 更新数据 -->
+	<update id="update${table?cap_first}" parameterClass="${table}">
+		UPDATE ${table} 
+		 <dynamic prepend="SET "> 
+		 <#list attr_list as attr> 
+		      <#if attr?ends_with("_")>
+			<#-- 变量赋值 -->
+			<#assign newAttr=attr?substring(0,attr?length-1)/>
+			<isNotEmpty property="${newAttr}" prepend=",">
+	      		<![CDATA[ ${newAttr} = #${newAttr}# ]]>
+	      	</isNotEmpty>
+			<#elseif attr?ends_with("_d")>
+			<#-- 变量赋值 -->
+			<#assign newAttr1=attr?substring(0,attr?length-2)/>
+			<isNotEmpty property="${newAttr1}" prepend=",">
+	      		<![CDATA[ ${newAttr1} = #${newAttr1}# ]]>
+	      	</isNotEmpty>
+			<#else>
+			<isNotEmpty property="${attr}" prepend=",">
+				<![CDATA[ ${attr} = #${attr}# ]]>
+			</isNotEmpty>
+			</#if>
+		 </#list>  
+		  </dynamic>  
+		  <dynamic prepend="WHERE">  
+		      id = #id#  
+		  </dynamic>
+	</update>
+	
+	<!-- 删除信息 -->
+	<delete id="delete${table?cap_first}" parameterClass="java.lang.String">
+		delete from ${table} where id=#value#
+	</delete>
+
+	<!-- 根据主键id查询信息 -->
+	<select id="get${table?cap_first}ByPk" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	<![CDATA[ 
+    select * from ${table} where id=#value#
+    ]]>
+	</select>
+	<!-- 获取列表 -->
+	<select id="getListBy${table?cap_first}Page" resultClass="java.util.HashMap" parameterClass="${table}">
+		select * 
+		<isParameterPresent>
+         <include refid="${table}PageCommon"/>
+        </isParameterPresent>
+        <isNotNull prepend="LIMIT" property="start">
+		#start#,#limit#
+		</isNotNull>
+	</select>
+	<!-- 获取列表的总数 -->
+	<select id="getCountBy${table?cap_first}" resultClass="java.util.HashMap" parameterClass="${table}">
+		select count(*) as count 
+		<isParameterPresent>
+         <include refid="${table}PageCommon"/>
+        </isParameterPresent>
+	</select>
+</sqlMap>

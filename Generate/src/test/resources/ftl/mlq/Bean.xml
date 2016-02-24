@@ -18,9 +18,9 @@
 		<#elseif attr?ends_with("_d")>
 		<#-- 变量赋值 -->
 		<#assign newAttr1=attr?substring(0,attr?length-2)/>
-		<result property="${newAttr}" column="${newAttr}"/>
+		<result property="${newAttr1}" column="${newAttr1}"/>
 		<#else>
-		<result property="${newAttr}" column="${newAttr}"/>
+		<result property="${attr}" column="${attr}"/>
 		</#if>
       </#list> 
 	</resultMap> 

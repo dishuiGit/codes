@@ -22,14 +22,11 @@ import freemarker.template.Template;
 
 public class Generator {
 	GeneratorConfig gc = ConfigFactory.create(GeneratorConfig.class);
-	
 	@Test
 	public void generator() {
 		gen();
-//		move();
+		move();
 	}
-
-	@Test
 	public void moveFiles() {
 		move();
 	}

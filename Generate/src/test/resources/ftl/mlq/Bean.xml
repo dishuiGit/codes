@@ -130,10 +130,7 @@
 	</select>
 	<!-- 获取全部列表 -->
 	<select id="queryAll${table?cap_first}" resultMap="${table}Result">
-		select * 
-		<isParameterPresent>
-         <include refid="${table}PageCommon"/>
-        </isParameterPresent>
+		select * from ${table}
 	</select>
 	<!-- 获取分页列表 -->
 	<select id="queryAll${table?cap_first}Page" resultMap="${table}Result" parameterClass="baseQuery">

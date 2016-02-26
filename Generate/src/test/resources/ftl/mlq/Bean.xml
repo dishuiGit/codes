@@ -5,11 +5,9 @@
 
 <sqlMap namespace="${table?cap_first}">
 
-	<typeAlias alias="${table}" type="com.bizoss.trade.${table}.${table?cap_first}" />
-	
+	<typeAlias alias="${table}" type="com.bizoss.trade.${table}.bean.${table?cap_first}" />
+	<typeAlias alias="baseQuery" type="com.bizoss.trade.base.BaseQuery" />
 	<resultMap id="${table}Result" class="${table}"> 
-		<result property="id" column="B_ID"/> 
-		<result property="name" column="B_NAME"/>
 		<#list attr_list as attr> 
 		<#if attr?ends_with("_")>
 		<#-- 变量赋值 -->
@@ -125,13 +123,20 @@
 	</delete>
 
 	<!-- 根据主键id查询信息 -->
-	<select id="get${table?cap_first}ByPk" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	<select id="query${table?cap_first}ById" parameterClass="java.lang.String" resultMap="${table}Result">
 	<![CDATA[ 
     select * from ${table} where id=#value#
     ]]>
 	</select>
-	<!-- 获取列表 -->
-	<select id="getListBy${table?cap_first}Page" resultClass="java.util.HashMap" parameterClass="${table}">
+	<!-- 获取全部列表 -->
+	<select id="queryAll${table?cap_first}" resultMap="${table}Result">
+		select * 
+		<isParameterPresent>
+         <include refid="${table}PageCommon"/>
+        </isParameterPresent>
+	</select>
+	<!-- 获取分页列表 -->
+	<select id="queryAll${table?cap_first}Page" resultMap="${table}Result" parameterClass="baseQuery">
 		select * 
 		<isParameterPresent>
          <include refid="${table}PageCommon"/>
@@ -141,7 +146,7 @@
 		</isNotNull>
 	</select>
 	<!-- 获取列表的总数 -->
-	<select id="getCountBy${table?cap_first}" resultClass="java.util.HashMap" parameterClass="${table}">
+	<select id="queryCountBy${table?cap_first}" resultClass="java.lang.Integer" parameterClass="baseQuery">
 		select count(*) as count 
 		<isParameterPresent>
          <include refid="${table}PageCommon"/>

@@ -12,13 +12,13 @@
 		<#if attr?ends_with("_")>
 		<#-- 变量赋值 -->
 		<#assign newAttr=attr?substring(0,attr?length-1)/>
-		<result property="${newAttr}" column="${newAttr}"/>
+		<result property="${newAttr}" column="${newAttr}" jdbcType="int" nullValue="0"/>
 		<#elseif attr?ends_with("_d")>
 		<#-- 变量赋值 -->
 		<#assign newAttr1=attr?substring(0,attr?length-2)/>
-		<result property="${newAttr1}" column="${newAttr1}"/>
+		<result property="${newAttr1}" column="${newAttr1}" jdbcType="decimal" nullValue="0.00"/>
 		<#else>
-		<result property="${attr}" column="${attr}"/>
+		<result property="${attr}" column="${attr}" jdbcType="varchar" nullValue=""/>
 		</#if>
       </#list> 
 	</resultMap> 

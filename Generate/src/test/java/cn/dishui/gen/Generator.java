@@ -25,8 +25,9 @@ public class Generator {
 	@Test
 	public void generator() {
 		gen();
-		move();
+//		move();
 	}
+	@Test
 	public void moveFiles() {
 		move();
 	}

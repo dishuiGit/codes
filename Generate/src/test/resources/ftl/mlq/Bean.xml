@@ -6,8 +6,9 @@
 <sqlMap namespace="${table?cap_first}">
 
 	<typeAlias alias="${table}" type="com.bizoss.trade.${table}.bean.${table?cap_first}" />
+	<typeAlias alias="${table}Query" type="com.bizoss.trade.${table}.bean.${table?cap_first}Query" />
 	<typeAlias alias="baseQuery" type="com.bizoss.trade.base.BaseQuery" />
-	<resultMap id="${table}Result" class="${table}"> 
+	<resultMap id="${table}Result" class="${table}Query"> 
 		<#list attr_list as attr> 
 		<#if attr?ends_with("_")>
 		<#-- 变量赋值 -->
@@ -23,28 +24,32 @@
       </#list> 
 	</resultMap> 
 
- 	<sql id="${table}PageCommon">
-	     from ${table}
-		<dynamic prepend="WHERE">
+	<sql id="dynamic${table?cap_first}">
 		<#list attr_list as attr> 
-			<#if attr?ends_with("_")>
-			<#-- 变量赋值 -->
-			<#assign newAttr=attr?substring(0,attr?length-1)/>
-			<isNotEmpty property="${newAttr}" prepend="AND">
-	      		${newAttr}=#${newAttr}#
-	      	</isNotEmpty>
-			<#elseif attr?ends_with("_d")>
-			<#-- 变量赋值 -->
-			<#assign newAttr1=attr?substring(0,attr?length-2)/>
-			<isNotEmpty property="${newAttr1}" prepend="AND">
-	      		${newAttr1}=#${newAttr1}#
-	      	</isNotEmpty>
-			<#else>
-			<isNotEmpty property="${attr}" prepend="AND">
-	      		${attr}=#${attr}#
-	      	</isNotEmpty>
-			</#if>
-	      </#list>
+		<#if attr?ends_with("_")>
+		<#-- 变量赋值 -->
+		<#assign newAttr=attr?substring(0,attr?length-1)/>
+		<isNotEmpty property="${newAttr}" prepend="AND">
+      		${table_alias}.${newAttr}=#${newAttr}#
+      	</isNotEmpty>
+		<#elseif attr?ends_with("_d")>
+		<#-- 变量赋值 -->
+		<#assign newAttr1=attr?substring(0,attr?length-2)/>
+		<isNotEmpty property="${newAttr1}" prepend="AND">
+      		${table_alias}.${newAttr1}=#${newAttr1}#
+      	</isNotEmpty>
+		<#else>
+		<isNotEmpty property="${attr}" prepend="AND">
+      		${table_alias}.${attr}=#${attr}#
+      	</isNotEmpty>
+		</#if>
+      </#list>
+	</sql>
+
+ 	<sql id="${table}PageCommon">
+	     from ${table} ${table_alias}
+		<dynamic prepend="WHERE">
+			<include refid="dynamic${table?cap_first}"/>
 		</dynamic>
  	</sql>  
 	<!-- 插入数据 -->
@@ -118,7 +123,7 @@
 	</update>
 	
 	<!-- 删除信息 -->
-	<delete id="delete${table?cap_first}" parameterClass="java.lang.String">
+	<delete id="delete${table?cap_first}" parameterClass="${table}">
 		delete from ${table} where id=#value#
 	</delete>
 
@@ -131,6 +136,13 @@
 	<!-- 获取全部列表 -->
 	<select id="queryAll${table?cap_first}" resultMap="${table}Result">
 		select * from ${table}
+	</select>
+	<!-- 根据条件获取列表 -->
+	<select id="queryAll${table?cap_first}ByObj" parameterClass="baseQuery" resultMap="${table}Result">
+		select * 
+		<isParameterPresent>
+         <include refid="${table}PageCommon"/>
+        </isParameterPresent>
 	</select>
 	<!-- 获取分页列表 -->
 	<select id="queryAll${table?cap_first}Page" resultMap="${table}Result" parameterClass="baseQuery">

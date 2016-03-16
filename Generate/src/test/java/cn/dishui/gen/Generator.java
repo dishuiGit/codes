@@ -112,6 +112,8 @@ public class Generator {
 		root.put("attr_list", gc.fields());
 		// 表名
 		root.put("table", gc.name());
+		// 表别名
+		root.put("table_alias", gc.alias());
 		
 		Template tm_pojo = null;
 		for(int i=0;i<temp_l.size();i++){

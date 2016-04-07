@@ -124,7 +124,7 @@
 	
 	<!-- 删除信息 -->
 	<delete id="delete${table?cap_first}" parameterClass="${table}">
-		delete from ${table} where id=#value#
+		delete from ${table} where id=#id#
 	</delete>
 
 	<!-- 根据主键id查询信息 -->

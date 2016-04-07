@@ -20,12 +20,12 @@ public class ${table?cap_first}ServiceImpl extends BaseServiceWarper<${table?cap
 	@Resource
 	private ${table?cap_first}DaoImpl ${table}DaoImpl;
 	
-	public void save(${table?cap_first} ${table}) {
-		${table}DaoImpl.save(${table});
+	public void save(${table?cap_first} ${table_alias}) {
+		${table}DaoImpl.save(${table_alias});
 	}
 
-	public void update(${table?cap_first} ${table}) {
-		${table}DaoImpl.update(${table});
+	public void update(${table?cap_first} ${table_alias}) {
+		${table}DaoImpl.update(${table_alias});
 	}
 
 	public ${table?cap_first} get(String id) {
@@ -36,38 +36,38 @@ public class ${table?cap_first}ServiceImpl extends BaseServiceWarper<${table?cap
 		return ${table}DaoImpl.getAll();
 	}
 
-	public List<${table?cap_first}> getAll(${table?cap_first}Query bqm) {
-		return ${table}DaoImpl.getAll(bqm);
+	public List<${table?cap_first}> getAll(${table?cap_first}Query ${table_alias}q) {
+		return ${table}DaoImpl.getAll(${table_alias}q);
 	}
 	
-	public List<${table?cap_first}> getAll(${table?cap_first}Query bqm, Integer pageNum) {
-		if(ObjUtils.empty(bqm.getLimit())){
-			return getAll(bqm, pageNum, 10);
+	public List<${table?cap_first}> getAll(${table?cap_first}Query ${table_alias}q, Integer pageNum) {
+		if(ObjUtils.empty(${table_alias}q.getLimit())){
+			return getAll(${table_alias}q, pageNum, 10);
 		}
-		return ${table}DaoImpl.getAll(bqm, pageNum, bqm.getLimit());
+		return ${table}DaoImpl.getAll(${table_alias}q, pageNum, ${table_alias}q.getLimit());
 	}
 
-	public Integer getCount(${table?cap_first}Query bqm) {
-		return ${table}DaoImpl.getCount(bqm);
+	public Integer getCount(${table?cap_first}Query ${table_alias}q) {
+		return ${table}DaoImpl.getCount(${table_alias}q);
 	}
 
-	public List<${table?cap_first}> getAll(${table?cap_first}Query bqm, Integer pageNum,
+	public List<${table?cap_first}> getAll(${table?cap_first}Query ${table_alias}q, Integer pageNum,
 			Integer pageCount) {
 		Integer startPage = 1;
 		if(ObjUtils.notEmpty(pageNum)){
 		    startPage = Pagination.cpn(pageNum);
 		}
 		
-		bqm.setStart((startPage-1)*pageCount);
-		bqm.setLimit(pageCount);
-		return ${table}DaoImpl.getAll(bqm, (startPage-1), pageCount);
+		${table_alias}q.setStart((startPage-1)*pageCount);
+		${table_alias}q.setLimit(pageCount);
+		return ${table}DaoImpl.getAll(${table_alias}q, (startPage-1), pageCount);
 	}
 
-	public void delete(${table?cap_first} ${table}) {
-		${table}DaoImpl.delete(${table});
+	public void delete(${table?cap_first} ${table_alias}) {
+		${table}DaoImpl.delete(${table_alias});
 	}
 	
-	public Pagination ge${table?cap_first}Pagination(${table?cap_first}Query bq,Integer pageNo,Integer limit,String url){
+	public Pagination get${table?cap_first}Pagination(${table?cap_first}Query ${table_alias}q,Integer pageNo,Integer limit,String url){
 		StringBuilder params = new StringBuilder();
 		/*
 			String goods_status = request.getParameter("goods_status");
@@ -85,9 +85,9 @@ public class ${table?cap_first}ServiceImpl extends BaseServiceWarper<${table?cap
 			limit = 10;
 		}
 		//总条数
-		Integer totalCount = getCount(bq);
+		Integer totalCount = getCount(${table_alias}q);
 		//列表
-		List<{table?cap_first}> mdr_l = getAll(bq, pageNo);
+		List<${table?cap_first}> mdr_l = getAll(${table_alias}q, pageNo);
 		Pagination pagination = new Pagination(pageNo,limit,totalCount);
 		//页面展示功能
 		pagination.pageView(url, params.toString());

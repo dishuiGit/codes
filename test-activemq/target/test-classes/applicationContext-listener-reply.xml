@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd 
+        http://www.springframework.org/schema/jms 
+        http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+    <!-- 1.配置connectionFactory -->  
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">  
+        <property name="connectionFactory">  
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">  
+                <property name="brokerURL">  
+                    <value>tcp://127.0.0.1:61616</value>  
+                </property>  
+            </bean>  
+        </property>  
+        <property name="maxConnections" value="100"></property>  
+    </bean>  
+      
+    <!-- 2.定义消息目标 -->  
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">  
+        <constructor-arg index="0" value="sales"></constructor-arg>  
+    </bean>  
+      
+  
+    <!-- 3.配置Spring JMS Template -->  
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">  
+        <!-- 3.1 注入jmsFactory -->  
+        <property name="connectionFactory" ref="jmsFactory"></property>  
+        <!-- 3.2 配置消息目标 -->  
+        <property name="defaultDestination" ref="destination" />  
+        <!-- ack mode -->
+        <property name="sessionAcknowledgeMode" value="2" />  
+    </bean>  
+      
+    <!-- 4.配置生产者 -->  
+    <bean id="listenerProducer" class="activemq.listener.ListenerProducer">  
+        <property name="jmsTemplate" ref="jmsTemplate"/>  
+    </bean>  
+      
+    <!-- 5.配置消费者 -->  
+    <bean id="listenerConsumer1" class="activemq.listener.ListenerConsumer"></bean>  
+    <bean id="listenerConsumer2" class="activemq.listener.ListenerConsumer2"></bean>  
+      
+    <!-- 消息监听容器 -->    
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">   
+        <property name="connectionFactory" ref="jmsFactory" />    
+        <property name="destination" ref="destination" />    
+        <property name="messageListener" ref="listenerConsumer1" />    
+    </bean>  
+
+</beans>

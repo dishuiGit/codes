@@ -14,4 +14,6 @@ public class JMSTest {
         
         System.out.println("初始化消息消费者");
     }
+
+
 }

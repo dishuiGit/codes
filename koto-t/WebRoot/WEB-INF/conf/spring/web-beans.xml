@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="ResourceConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>WEB-INF/conf/server.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- URLBrokers -->
+	<bean id="appServerBroker" class="com.eyeieye.melody.web.url.URLBroker">
+		<property name="encoding" value="${web.encoding}"></property>
+		<property name="config">
+			<bean class="com.eyeieye.melody.web.url.URLConfig">
+				<property name="host" value="${app.server.host}"></property>
+				<property name="port" value="${app.server.port}"></property>
+				<property name="followContextPath" value="true"></property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="imgServerBroker" class="com.eyeieye.melody.web.url.URLBroker">
+		<property name="encoding" value="${web.encoding}"></property>
+		<property name="config">
+			<bean class="com.eyeieye.melody.web.url.URLConfig">
+				<property name="host" value="${app.server.host}"></property>
+				<property name="port" value="${app.nio.server.port}"></property>
+				<property name="followContextPath" value="true"></property>
+			</bean>
+		</property>
+	</bean>
+	<bean class="com.eyeieye.melody.web.url.ServletContextInitHelper">
+		<property name="brokers">
+			<list>
+				<ref bean="appServerBroker" />
+				<ref bean="imgServerBroker" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="encodingFilterBean" class="org.springframework.web.filter.CharacterEncodingFilter">
+		<property name="encoding" value="${web.encoding}"></property>
+		<property name="forceEncoding" value="false"></property>
+	</bean>
+
+	<bean id="performanceMonitorFilter"
+		class="com.eyeieye.melody.profiler.SpringPerformanceMonitorFilter">
+		<property name="threshold" value="${performance.monitor.threshold}"></property>
+	</bean>
+</beans>

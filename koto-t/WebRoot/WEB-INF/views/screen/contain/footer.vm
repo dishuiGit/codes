@@ -1,0 +1,4 @@
+<div style="float:left;width:800px;">
+<hr/>
+<a href="$appServer.get("index.htm")">ปุสืาณ</a>
+</div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GB2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>WEB-INF/conf/server.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mongoDB" class="com.eyeieye.koto.dao.store.impl.mongo.MongoDBBeanFactory">
+		<property name="mongoUrls" value="${mongo.urls}"></property>
+		<property name="dbName" value="${mongo.dbName}"></property>
+		<property name="optionsConnectionsPerHost" value="${mongo.connectionsPerHost}"></property>
+		<property name="slaveOk" value="${mongo.slaveOk}"></property>
+		<property name="writeConcern" value="${mongo.writeConcern}"></property>
+		<property name="writeConcernTimeout" value="${mongo.writeConcernTimeout}"></property>
+	</bean>
+	
+	<bean id="imgGridFS" class="com.eyeieye.koto.dao.store.impl.mongo.GridFSBeanFactory">
+		<property name="mongoDB" ref="mongoDB"></property>
+		<property name="bucket" value="${mongo.img.grid.bucket}"></property>
+	</bean>
+	
+	<bean id="fsGridFS" class="com.eyeieye.koto.dao.store.impl.mongo.GridFSBeanFactory">
+		<property name="mongoDB" ref="mongoDB"></property>
+		<property name="bucket" value="${mongo.file.grid.bucket}"></property>
+	</bean>
+
+</beans>

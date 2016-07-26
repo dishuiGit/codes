@@ -1,0 +1,38 @@
+一共有${result.total}张图片 &nbsp; &nbsp;#if($result.total > 0)
+	共$!{totalPage}页 当前第$!{page}页 &nbsp; &nbsp;
+	#if($page > 1)
+		#set($prepage = $page - 1 )  
+		<a href="$appServer.get('/upload/images.htm').put('page',$prepage)">上一页</a> &nbsp; &nbsp;
+	#end
+	#if($page < $totalPage)
+		#set($next = $page+1)
+		<a href="$appServer.get('/upload/images.htm').put('page',$next)">下一页</a> &nbsp; &nbsp;
+	#end
+#else
+	共0页
+#end
+<hr/>
+#foreach($im in $result.imgs)
+	<div style="float:left;width:450px;">
+	$velocityCount <a href="$appServer.get('/upload/removeimg.htm').addQueryData('path',"${im.path}")">删除</a> 
+	</br>URL:&nbsp;&nbsp; $imgServer.get("${im.path}")
+	<br/><img src="$imgServer.get("${im.path}")" width="260px;"/>
+	</div>
+#end
+<div style="float:left;width:800px;">
+#if($result.total > 0)
+	</br>
+	<hr/>
+	共$!{totalPage}页 当前第$!{page}页  &nbsp; &nbsp; 
+	#if($page > 1)
+		#set($prepage = $page - 1) 
+		<a href="$appServer.get('/upload/images.htm').put('page',$prepage)">上一页</a> &nbsp; &nbsp;
+	#end
+	#if($page < $totalPage)
+		#set($next = $page+1)
+		<a href="$appServer.get('/upload/images.htm').put('page',$next)">下一页</a> &nbsp; &nbsp;
+	#end
+#else
+	共0页
+#end
+</div>

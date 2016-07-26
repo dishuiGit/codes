@@ -1,0 +1,7 @@
+<a href="$appServer.get('statistics/record.htm')" >record</a>
+<br/>
+date->{cache hit}in{total hit}:{rate};{cache hit bytes}in{total bytes}:{cached rate}<br/>
+#foreach($report in $reports)
+	$format.format($report.date)->${report.cacheHitCount}in${report.hitTotalCount}:${report.cacheHitRate}%;  ${report.hitTotalSum}in${report.cacheHitSum}:${report.cacheHitSumRate}%
+	<br/>
+#end

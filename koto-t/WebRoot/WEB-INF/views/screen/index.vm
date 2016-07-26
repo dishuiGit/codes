@@ -1,0 +1,12 @@
+<a href="$appServer.get('/upload/upimg.htm')" >上传图片</a>
+<br/>
+<a href="$appServer.get('/upload/upfile.htm')" >上传文件</a>
+<br/>
+<a href="$appServer.get('/upload/images.htm')">显示已上传图片</a>
+<br/>
+<a href="$appServer.get('/count/img_sta.htm')">显示图片文件缓存统计</a>
+<br/>
+<a href="$appServer.get('/hit/arrange.htm')">执行内存cache清理</a>
+<br/>
+<a href="$appServer.get('/statistics/statistics.htm')">查看缓存命中率</a>
+<br/>

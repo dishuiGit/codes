@@ -1,0 +1,25 @@
+memory cache current use:<br/>
+<table border="1">
+	<tr>
+		<th>count</th><th>totalSpace(Mb)</th><th>usedSpace(Mb)</th><th>freeSpace(Mb)</th>
+	</tr>
+	#foreach($b in $memory)
+	<tr>
+		<td>$!{b.rowCount}</td><td>$!{b.totalSpaceMb}</td><td>$!{b.usedSpaceMb}</td><td>$!{b.freeSpaceMb}</td>
+	</tr>
+	#end
+</table>
+disk cache current use:<br/>
+<table border="1">
+	<tr>
+		<th>No</th><th>count</th><th>totalSpace(Mb)</th><th>usedSpace(Mb)</th><th>freeSpace(Mb)</th><th>current</th>
+	</tr>
+	#foreach($b in $stas)
+	<tr>
+		<td>$!{b.id}</td><td>$!{b.rowCount}</td><td>$!{b.totalSpaceMb}</td><td>$!{b.usedSpaceMb}</td><td>$!{b.freeSpaceMb}</td><td>$!{b.currentStore}</td>
+	</tr>
+	#end
+	<tr>
+		<td>sum</td><td>$!{sum.rowCount}</td><td>$!{sum.totalSpaceMb}</td><td>$!{sum.usedSpaceMb}</td><td>$!{sum.freeSpaceMb}</td><td>&nbsp;</td>
+	</tr>
+</table>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="GB2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:component-scan
+		base-package="com.eyeieye.koto.remote,com.eyeieye.koto.validate" />
+
+	<bean id="imgStoreService" class="com.eyeieye.koto.dao.store.impl.MongoStoreServiceImpl"
+		init-method="init">
+		<qualifier value="imgStoreService" />
+		<property name="gridFS" ref="imgGridFS"></property>
+	</bean>
+	<bean id="fileStoreService" class="com.eyeieye.koto.dao.store.impl.MongoStoreServiceImpl"
+		init-method="init">
+		<qualifier value="fileStoreService" />
+		<property name="gridFS" ref="fsGridFS"></property>
+	</bean>
+
+	<bean id="imageThumbService" class="com.eyeieye.koto.service.impl.Im4jImageThumbServiceImpl">
+		<property name="useGM" value="false"></property>
+		<property name="tmpDir" value="${image.tmp.dir}"></property>
+		<property name="quality" value="90"></property>
+	</bean>
+
+	<bean id="shapeSizeValidator" class="com.eyeieye.koto.validate.impl.RangeShapeSizeValidator">
+		<property name="widthMin" value="10"></property>
+		<property name="widthMax" value="1200"></property>
+		<property name="heightMin" value="10"></property>
+		<property name="heightMax" value="4000"></property>
+	</bean>
+	<!-- cache -->
+
+	<!-- <bean id="imageCache" class="com.eyeieye.koto.dao.cache.ehcache.EhcacheImageCacheImpl" 
+		init-method="init" destroy-method="shutdown"> <property name="cacheName" 
+		value="imageCache" /> <property name="diskStorePath" value="${img.cache.disk.store.path}" 
+		/> <property name="diskStoreBytes" value="${img.cache.disk.store.bytes}" 
+		/> <property name="memoryUseBytes" value="${img.cache.memory.bytes}" /> <property 
+		name="idleHours" value="${img.cache.idle.hours}" /> <property name="diskExpiryThreadIntervalSeconds" 
+		value="3600" /> </bean> -->
+
+	<bean id="imageCache" class="com.eyeieye.koto.dao.cache.ImageCacheCombination">
+		<property name="memoryCache" ref="memoryCache"></property>
+		<property name="diskCache" ref="diskCache"></property>
+		<property name="hotspotManager" ref="hotspotManager"></property>
+		<property name="executor" ref="threadPoolExecutor"></property>
+	</bean>
+
+	<bean id="memoryCache"
+		class="com.eyeieye.koto.dao.cache.memory.ImageCacheMemoryStoreImpl">
+		<property name="maxMemoryMB" value="${img.cache.memory.max.MB}"></property>
+	</bean>
+
+	<bean id="diskCache" class="com.eyeieye.koto.dao.cache.file.ImgCacheFileStoreImpl">
+		<property name="config">
+			<bean class="com.eyeieye.koto.dao.cache.file.ImgCacheStoreConfig">
+				<property name="blocks" value="${img.cache.disk.store.blocks}"></property>
+				<property name="storePath" value="${img.cache.disk.store.path}"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="threadPoolExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean">
+		<property name="corePoolSize" value="2"></property>
+		<property name="threadNamePrefix" value="kotoThreadPool#"></property>
+	</bean>
+
+	<bean id="hotspotManager"
+		class="com.eyeieye.koto.dao.cache.hotsopt.GDSFSimilarHotspotManagerImpl">
+		<property name="memoryCache" ref="memoryCache"></property>
+		<property name="diskCache" ref="diskCache"></property>
+		<property name="executor" ref="threadPoolExecutor"></property>
+		<property name="maxMemoryMB" value="${img.cache.memory.max.MB}"></property>
+		<property name="arrangeIntervalMinute" value="${img.cache.memory.arrange.interval.minute}"></property>
+		<property name="expiredDay" value="${img.cache.hit.record.expired.day}"></property>
+	</bean>
+
+	<bean id="imageStatisticsService"
+		class="com.eyeieye.koto.service.impl.ImageStatisticsServiceImpl"
+		init-method="init" destroy-method="destroy"></bean>
+</beans>

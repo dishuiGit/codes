@@ -12,6 +12,7 @@ import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import cn.dishui.inter.AppGeneratorConfig;
 import cn.dishui.inter.GeneratorConfig;
 
 import com.google.common.base.Function;
@@ -21,7 +22,9 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class Generator {
-	GeneratorConfig gc = ConfigFactory.create(GeneratorConfig.class);
+//	GeneratorConfig gc = ConfigFactory.create(GeneratorConfig.class);
+	
+	AppGeneratorConfig gc = ConfigFactory.create(AppGeneratorConfig.class);
 	@Test
 	public void generator() {
 		gen();
@@ -32,7 +35,7 @@ public class Generator {
 		move();
 	}
 
-	public void move() {
+	private void move() {
 		String base = getBasePath();
 		
 		String class_src = base + "/gen/" + gc.name() + "";
@@ -53,7 +56,7 @@ public class Generator {
 		}
 	}
 
-	public void gen() {
+	private void gen() {
 
 		// 配置FK类
 		Configuration conf = new Configuration();
@@ -63,9 +66,6 @@ public class Generator {
 		System.out.println(ftl_folder);
 		Template tm_pojo = null;
 		try {
-			// 判断文件夹是否存在
-			// 清空目录下的所有文件/文件夹
-			//FileUtils.cleanDirectory(new File("gen"));
 			
 			executeGen(conf,new File(ftl_folder));
 			
@@ -88,12 +88,6 @@ public class Generator {
 			}
 		}
 		final String gen_f_path = gen_f.getAbsolutePath()+ "/" + gc.name();
-//		String pack =base + gc.floder() + "/" + gc.name();
-//		String packJava =base + "/gen/" + captureName(gc.name()) + ".java";
-//		String packJavaProp =base + "/gen/" + captureName(gc.name()) + "_prop.java";
-//		String packInfoJava =base + "/gen/" + captureName(gc.name()) + "Info.java";
-//		String packXML = base +"/gen/" + captureName(gc.name()) + ".xml";
-//		String packImpl = base +"/gen/" + captureName(gc.name()) + "Impl.java";
 		
 		conf.setDirectoryForTemplateLoading(ftl_folder);
 		List<String> temp_l = gc.ftls();
@@ -106,7 +100,6 @@ public class Generator {
 	    	
 	    };  
 	    pack_l = Lists.transform(pack_l, function);  
-		
 		
 		Map root = new HashMap();
 		root.put("attr_list", gc.fields());
@@ -125,14 +118,6 @@ public class Generator {
 			w_pack.close();
 		}
 		
-//		FileUtils.forceMkdir(new File(pack));
-//		// 文件夹
-//		File packf = new File(pack);
-//		for(String pack_s:pack_l){
-//			if(pack_s.endsWith("java")){
-//				FileUtils.moveFileToDirectory(new File(pack_s), packf, false);
-//			}
-//		}
 	}
 
 	private String getBasePath() {

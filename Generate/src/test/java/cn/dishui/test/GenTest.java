@@ -34,7 +34,6 @@ public class GenTest {
 	}
 	
 	
-	
 	private String getBasePath() {
 		String base = this.getClass().getResource("/").getPath();
 		File base_f = new File(base);
